@@ -1,8 +1,5 @@
 import HomeButton from "@/components/homeButton";
 import {getForecast} from "@/utils/getForecast";
-import {
-    createFlightRouterStateFromLoaderTree
-} from "next/dist/server/app-render/create-flight-router-state-from-loader-tree";
 
 
 type Props = {
@@ -24,17 +21,19 @@ export function generateMetadata({params, searchParams}: Props) {
 
 
 export default async function Detail ({ params, searchParams }: Props) {
-    const name =  searchParams.name;
-    console.log(params.location)
-    const res = await getForecast(params.location);
+    const res = await getForecast(params?.location);
 
+    console.log("res", res);
     return (
         <>
             <h1>{searchParams.name}의 3일 예보</h1>
             <ul>
-                {res.forecast.forecastday.map((day) => (
-                    <li key={day.date}>{day.date} / {day.day.avgtemp_c}</li>
-                ))}
+                {res?.forecast?.forecastday.map((day) => {
+
+                    console.log(day)
+                        return  <li key={day.date}>{day.date} / {day.day.avgtemp_c}</li>
+                }
+                )}
             </ul>
             <HomeButton/>
         </>

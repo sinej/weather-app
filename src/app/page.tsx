@@ -2,15 +2,11 @@ import Link from "next/link";
 import style from './style.module.css';
 import {getCurrentWeather} from "@/utils/getCurrentWeather";
 import {getTime} from "@/utils/getTime";
-import {
-    createFlightRouterStateFromLoaderTree
-} from "next/dist/server/app-render/create-flight-router-state-from-loader-tree";
 import RevalidateButton from "@/components/revalidateButton";
 
 export default async function Home() {
     const res = await getCurrentWeather('seoul');
     const time = await getTime(res.location.tz_id);
-    console.log(time)
 
   return (
       <>
